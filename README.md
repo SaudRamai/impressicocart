@@ -1,6 +1,8 @@
 ## Django Application with OpenSearch Integration
 This project integrates a Django application with OpenSearch using Docker for efficient data storage and retrieval. It enhances search functionality with both normal and AI-powered smart search capabilities, leveraging OpenSearch and advanced AI models.
 
+![Screenshot from 2024-06-17 14-58-40](https://github.com/SaudRamai/impressicocart/assets/136465879/0f508712-ea87-40e2-942b-1c88ff95c521)
+
 ## Project Structure
 Django_and_OpenSearch
 ```bash
@@ -198,8 +200,12 @@ This Django application provides enhanced search capabilities using both traditi
 ### Normal Search
 Users can perform traditional keyword-based searches using the search bar. Queries are processed directly against the OpenSearch index to retrieve relevant products based on matching keywords, categories, and other specified criteria.
 
+![Screenshot from 2024-06-17 15-04-04](https://github.com/SaudRamai/impressicocart/assets/136465879/ac06169d-5cfb-488d-a789-0302fb253577)
+
 ### Smart Search
 This project enhances the search functionality of an e-commerce platform by enabling users to input queries in natural language. The system uses AI to convert these queries into structured OpenSearch queries, retrieving relevant products efficiently from an OpenSearch database.It  provides a user-friendly search experience where users can input queries in natural language. The system translates these queries into OpenSearch queries to retrieve products matching user intent accurately and efficiently.
+
+![Screenshot from 2024-06-17 15-04-10](https://github.com/SaudRamai/impressicocart/assets/136465879/8861a93e-4ebf-4b63-bf82-72dd3e5ef000)
 
 #### Components
 - An AI language model interprets user natural language queries.
