@@ -207,16 +207,16 @@ This project enhances the search functionality of an e-commerce platform by enab
 
 ![Screenshot from 2024-06-17 15-04-10](https://github.com/SaudRamai/impressicocart/assets/136465879/8861a93e-4ebf-4b63-bf82-72dd3e5ef000)
 
-#### Components
+##### Components
 - An AI language model interprets user natural language queries.
 
-#### Query Parser
+##### Query Parser
 - Converts extracted information into valid OpenSearch queries.
 
-#### OpenSearch Database
+##### OpenSearch Database
 - Input: Users enter search queries in the search bar located on the application's navbar.
 
-#### Process Flow
+##### Process Flow
 - Input: Users enter search queries in the search bar located on the application's navbar.
 - User Input: Users input search queries in natural language through the search interface.
 - Query Interpretation: AI processes the query to understand user intent and extract key details like product names, categories, price ranges, and ratings.
