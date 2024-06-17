@@ -84,6 +84,10 @@ The project dependencies are listed in requirements.txt:
 opensearch-dsl==1.4.1
 django-opensearch-dsl==1.0.0
 django==3.2.8
+opensearchpy==1.0.5
+langchain==0.4.1
+langchain-openai==0.1.0
+langchain-core==0.4.1
 openai
 ```
 Install these dependencies using pip if you are running the application outside of Docker:
@@ -222,7 +226,7 @@ Backend: Django views handle the logic for both normal and smart search function
 
 Integration: Configuration in settings.py ensures seamless integration with OpenSearch, enabling efficient querying and retrieval of product data.
 
-### Usage
+## Usage
 - Input: Users enter search queries in the search bar located on the application's navbar.
 - Processing: Depending on the type of search selected (normal or smart), the system processes the query accordingly.
 - Execution: Queries are executed against the OpenSearch database to fetch matching products.
