@@ -202,7 +202,6 @@ For detailed steps on ingesting data into OpenSearch, please refer to the follow
 ### Data Preparation
 1. **Retrieve data from the [Amazon Products Dataset on Kaggle](https://www.kaggle.com/datasets/lokeshparab/amazon-products-dataset).**
 2. **Clean the data** by removing duplicates, filling missing values, fixing errors, standardizing formats, and removing unnecessary fields.
-3. **Combine cleaned data** into a single CSV file.
 
 ### OpenSearch Index Creation
 1. Create the `amazon_data` index for detailed product information.
