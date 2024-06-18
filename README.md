@@ -1,4 +1,4 @@
-## Django Application with OpenSearch Integration
+![Screenshot from 2024-06-17 15-04-10](https://github.com/SaudRamai/impressicocart/assets/136465879/9428b82e-e2a8-4053-be35-da7a5b9ff378)## Django Application with OpenSearch Integration
 This project integrates a Django application with OpenSearch using Docker for efficient data storage and retrieval. It enhances search functionality with both normal and AI-powered smart search capabilities, leveraging OpenSearch and advanced AI models.
 
 ![Screenshot from 2024-06-17 14-58-40](https://github.com/SaudRamai/impressicocart/assets/136465879/0f508712-ea87-40e2-942b-1c88ff95c521)
@@ -226,12 +226,49 @@ This Django application provides enhanced search capabilities using both traditi
 ### Normal Search
 Users can perform traditional keyword-based searches using the search bar. Queries are processed directly against the OpenSearch index to retrieve relevant products based on matching keywords, categories, and other specified criteria.
 
-![Screenshot from 2024-06-17 15-04-04](https://github.com/SaudRamai/impressicocart/assets/136465879/ac06169d-5cfb-488d-a789-0302fb253577)
+Users can perform traditional keyword-based searches using the search bar:
+
+1. **Input:** Users enter search queries in the search bar located on the application's navbar.
+
+![Screenshot from 2024-06-18 11-11-04](https://github.com/SaudRamai/impressicocart/assets/136465879/770e84d2-f400-46fd-a0b4-2bb0c1ed4bbf)
+
+2. **Processing:** The system processes the query against the OpenSearch index.
+
+3. **Execution and Display:** Queries are executed to retrieve relevant products based on matching keywords, categories, and criteria. Results are then displayed in a user-friendly format on the search results page.
+
+![Screenshot from 2024-06-18 11-11-23](https://github.com/SaudRamai/impressicocart/assets/136465879/06511db9-6af1-483f-9821-d6c53ed72b1d)
+
+
 
 ### Smart Search
 This project enhances the search functionality of an e-commerce platform by enabling users to input queries in natural language. The system uses AI to convert these queries into structured OpenSearch queries, retrieving relevant products efficiently from an OpenSearch database.It  provides a user-friendly search experience where users can input queries in natural language. The system translates these queries into OpenSearch queries to retrieve products matching user intent accurately and efficiently.
 
-![Screenshot from 2024-06-17 15-04-10](https://github.com/SaudRamai/impressicocart/assets/136465879/8861a93e-4ebf-4b63-bf82-72dd3e5ef000)
+Enhanced AI-powered search capabilities:
+
+#### Enabling Premium Smart Search
+To activate premium smart search features:
+
+
+<img src="https://github.com/SaudRamai/impressicocart/assets/136465879/ba347937-3e37-4def-8f21-98eb61440f88" width="492" height="40" />   
+➜  
+<img src="https://github.com/SaudRamai/impressicocart/assets/136465879/43db4b14-ac9c-420d-ba5b-d303a0e81295" width="492"  height="40"  />
+
+
+
+
+1. **Input:** Users input queries in natural language through the search interface.
+
+   ![Screenshot from 2024-06-18 11-12-27](https://github.com/SaudRamai/impressicocart/assets/136465879/e62ff924-0cf5-47dd-ab6e-8d6feb9ed060)
+
+2. **Query Interpretation:** AI processes the query to understand user intent (product names, categories, etc.).
+
+3. **Query Generation:** Converts information into valid OpenSearch query DSL.
+
+4. **Execution:** Executes the generated query against the OpenSearch database.
+
+5. **Display:** Displays results formatted for user-friendly navigation with pagination.
+
+   ![Screenshot from 2024-06-18 11-12-36](https://github.com/SaudRamai/impressicocart/assets/136465879/d40fa5dd-f137-4935-875e-c1a0df7c1b21)
 
 ##### Components
 - An AI language model interprets user natural language queries.
