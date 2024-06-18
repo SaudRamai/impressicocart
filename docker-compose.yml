@@ -1,0 +1,46 @@
+version: '3'
+services:
+  opensearch-node1: 
+    image: opensearchproject/opensearch:latest 
+    container_name: opensearch-node1
+    environment:
+      - cluster.name=${CLUSTER_NAME} 
+      - node.name=${NODE_NAME}
+      - discovery.seed_hosts=${DISCOVERY_SEED_HOSTS}
+      - cluster.initial_cluster_manager_nodes=${INITIAL_CLUSTER_MANAGER_NODES}
+      - bootstrap.memory_lock=true 
+      - "OPENSEARCH_JAVA_OPTS=${OPENSEARCH_JAVA_OPTS}"
+      - "DISABLE_INSTALL_DEMO_CONFIG=${DISABLE_INSTALL_DEMO_CONFIG}"
+      - "DISABLE_SECURITY_PLUGIN=${DISABLE_SECURITY_PLUGIN}"
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+    ulimits:
+      memlock:
+        soft: -1 
+        hard: -1
+      nofile:
+        soft: 65536 
+        hard: 65536
+    volumes:
+      - opensearch-data1:/usr/share/opensearch/data 
+    ports:
+      - 9200:9200 
+    networks:
+      - opensearch-net 
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:latest 
+    container_name: opensearch-dashboards
+    ports:
+      - 5601:5601 
+    expose:
+      - "5601" 
+    environment:
+      - OPENSEARCH_HOSTS=${OPENSEARCH_HOSTS}
+      - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=${DISABLE_SECURITY_DASHBOARDS_PLUGIN}"
+    networks:
+      - opensearch-net
+
+volumes:
+  opensearch-data1:
+
+networks:
+  opensearch-net:

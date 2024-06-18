@@ -1,0 +1,5 @@
+opensearch-dsl==1.4.1
+django-opensearch-dsl==1.0.0
+django==3.2.8 
+requests==2.26.0 
+openai

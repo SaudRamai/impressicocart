@@ -1,0 +1,868 @@
+{% extends 'customapp/dependencies.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* Add CSS styles for the EB Garamond font */
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+  @import url("https://fonts.googleapis.com/css?family=Bentham|Playfair+Display|Raleway:400,500|Suranna|Trocchi") ;
+    
+
+  * {box-sizing: border-box}
+  body {font-family: Verdana, sans-serif; margin:0}
+  .mySlides {display: none}
+  img {vertical-align: middle;}
+  
+  /* Slideshow container */
+  .slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+    margin-top: 50px; /* Add margin to the top */
+    
+  }
+
+  .fullscreen-image-slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 500%;
+    z-index: -1;
+    overflow: hidden;
+    background-color:hsl(0, 0%, 85%); /* Example color */
+
+  }
+
+  .fullscreen-image-slider .mySlides {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 500%;
+    object-fit: cover;
+
+  }
+
+  .fullscreen-image-slider .text {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-family: 'EB Garamond', serif;
+  }
+
+  /* Fading animation */
+  .fade {
+    animation-name: fade;
+    animation-duration: 10s;
+  }
+
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+
+  /* Next & previous buttons */
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    display: none; /* Make them invisible */
+  }
+
+  /* Position the "next button" to the right */
+  .next {
+    right: 0;
+    margin-top: -30px; /* Adjust vertical position */
+    border-radius: 3px 0 0 3px;
+  }
+
+  /* Position the "previous button" to the left */
+  .prev {
+    left: 0;
+    margin-top: -30px; /* Adjust vertical position */
+    border-radius: 0 3px 3px 0;
+  }
+
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  /* Caption text */
+  .text {
+    color: #049485; /* Set text color to black */
+    font-size: 18px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold; /* Make the text bold */
+    font-family: 'EB Garamond', serif;
+  }
+
+  .dot-container {
+    text-align: center; 
+    margin-top: 100px;
+    margin-left: -160px; 
+    display: none; 
+  }
+
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 5px; 
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+
+  .active, .dot:hover {
+    background-color: #049485;
+  }
+
+  /* Set fixed dimensions for all images */
+  .mySlides img {
+    width: 100%; /* Ensure images fill the container */
+    height: 600px; /* Increase the height of the images */
+    object-fit: cover; /* Ensure images maintain aspect ratio */
+  }
+
+  body { background: #EFEFEF; }
+
+  /* Text color */
+  /* Text stroke effect for welcome text */
+  .welcome-text {
+    font-family: Forte, sans-serif;
+    color: #fff; /* Text color */
+    font-size:40px;
+    font-weight: bold;
+    text-shadow:
+       3px 3px 0 #049485,
+     -1px -1px 0 #049485,  
+      1px -1px 0 #049485,
+      -1px 1px 0 #049485,
+       1px 1px 0 #049485;
+    margin-left: -120px;
+  }
+
+  /* Text stroke effect for introduction content */
+  .content-introduction {
+      font-family: 'EB Garamond', serif;
+      color: #049485; /* Text color */
+      font-size: 15px;
+      text-align: left;
+      margin-top:-15px;
+      text-transform: uppercase;
+      margin-left: 13px; /* Adjust margin-left to shift the text to the right */
+      font-weight: 900; /* Apply a bolder font weight */
+      padding: 10px; /* Padding inside the border */
+      margin-left: -110px;
+      text-shadow:
+      2px 2px 0 #070707,
+
+
+      
+  }
+
+  @media screen and (max-width: 800px) {
+    .column {
+      flex: 50%;
+      max-width: 50%;
+    }
+  }
+
+  .card img {
+    max-height: 140px; /* Decreased maximum height for the card images */
+    width: 100%; /* Ensure the image width adjusts proportionally */
+    object-fit: cover; /* Ensure the image covers the entire container */
+    object-position: 50% 70%; /* Shift the image 50% from the left and 10% from the top */
+
+    border-top-left-radius: 5px; /* Rounded top-left corner */
+    border-top-right-radius: 5px; /* Rounded top-right corner */
+  }
+  :root {
+    --color-primary-white: rgb(0, 0, 0);
+  }
+
+  .w3-sidebar {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    height: 100%;
+    overflow-y: auto;
+    top: 0;
+    left: 0;
+    width: 250px;
+}
+
+  .capitaliz {
+    text-transform: capitalize;
+  }
+
+  .product-slider {
+    margin-bottom: 100px;
+    left: 20px;
+    max-width: 80%;
+    margin-right: 70px;
+  }
+
+
+  .product-slider p {
+    margin: 5px 0;
+    font-size: 0.4rem;
+    display: block;
+  }
+
+  .product-slider a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .swiper-container.second-swiper {
+    background-color: hsl(0, 0%, 96%);; /* Example color */
+            margin-top:10px;
+            margin-left:-100px;
+            width: 105%;
+            height: 30%;
+        }
+        .swiper-container.first-swiper 
+        {
+          background-color:hsl(0, 0%, 95%);; /* Example color */
+            margin-top:10px;
+            margin-left:-100px;
+            width: 105%;
+            height: 30%;
+
+        }      
+.swiper-slide {
+    display: flex;
+    justify-content: space-between;
+
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin-top: -100px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 8px;
+    gap: 10px !important;
+    padding: -10px; /* Reduced padding */
+    margin: 5px; /* Reduced margin */
+    margin-left: 5px; /* Adjusted margin-left to shift cards to the left */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    width: calc(15% - 2rem) !important;
+}
+
+
+@media screen and (max-width: px) {
+    .swiper-slide {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+    }
+
+    .card {
+        width: calc(33.33% - 0px);
+    }
+}
+
+@media screen and (max-width: 100px) {
+    .swiper-slide {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .card {
+        width: calc(0% - 10px);
+    }
+}
+
+
+.overlay::before,
+.overlay::after{
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -40px;
+  height: 40px;
+  width: 40px;
+  background-color: #000000;
+}
+.overlay::after{
+  border-radius: 0 25px 0 0;
+  background-color: #FFF;
+}
+.card-image{
+  position: relative;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background: #FFF;
+  padding: 3px;
+}
+.card-image .card-img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #030303;
+  width: 100%;
+  height: auto;
+}
+
+
+.card-body {
+        padding: 0rem;
+    }
+.name{
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+.swiper-text{
+  font-size: 25px;
+  color: #4b4b4b;
+margin-left: 15px;
+font-weight: bold;
+}
+        .swiper-button-prev,
+        .swiper-button-next {
+            color: #000000;
+            background-color:white;
+            padding: 10px;
+            border-radius: 10%;
+            display: none;
+            height: 60px;
+            width: 42px;
+        }
+        .swiper-button-prev {
+            left: 10px;
+            margin-top: -60px;
+
+        }
+        .swiper-button-next {
+            right: 25px;
+            margin-top: -60px;
+
+        }
+        .swiper-container:hover .swiper-button-prev,
+        .swiper-container:hover .swiper-button-next {
+            display: block;
+
+        }
+.swiper-pagination-bullet{
+  background-color: #efe7e7;
+  opacity: 0;
+
+}
+.swiper-pagination-bullet-active{
+  background-color: #ffffff;
+
+}
+
+@media screen and (max-width: 700px) {
+  .slide-content{
+    margin: 0 0px;
+  }
+  .swiper-navBtn{
+    display: none;
+  }
+}
+
+.show-more {
+    display: block;
+    font-weight: bold;
+    margin-left: 40px;
+    color: #049485;
+    cursor: pointer;
+}
+
+.show-more.hidden {
+    display: none;
+}
+
+.toggle-text {
+    display: block;
+    font-weight: bold;
+    margin-left: 40px;
+    color: #049485;
+    cursor: pointer;
+}
+
+.toggle-text.hidden {
+    display: none;
+}
+
+.subcategory-item.hidden {
+    display: none;
+}
+.divider {
+    margin: 5px 0;
+    border: none;
+    height: 1px;
+    background: #6d6d6d;
+    width: 98.5%;
+    margin-left : 10px;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+    gap: 20px; /* Space between the cards */
+    margin-left: -50px;
+    margin-right: auto;
+    width: 70%; /* Adjust the width to fit in the available space */
+    margin-top: -200px;
+
+}
+
+section {
+    margin: 10px;
+    background-color: #e1fffc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box; /* Ensure padding and border are included in the width and height */
+
+}
+
+/* Card positioning */
+.A {
+    height: 500px;
+    grid-column: 1 / 2; /* First column */
+    width: 700px;
+    margin-left: 300px;
+    margin-top:200px;
+
+  
+
+}
+.G {
+    height: 760px;
+    grid-column: 1 / 2; /* First column */
+    width: 350px;
+    margin-left: -55px;
+    margin-top:-800px;
+
+}
+
+.B {
+    height: 400px;
+    grid-column: 2 / 3; /* Second column */
+    width: 400px;
+    margin-left: -20px;
+    margin-top:200px;
+
+
+
+}
+
+.D {
+    height: 250px;
+    grid-column: 1 / 2; /* First column */
+    grid-row: 2 / 3;
+    width: 230px;
+    margin-left: 300px;
+    margin-top:-30px;
+
+
+
+}
+
+.E {
+    height: 250px;
+    grid-column: 2 / 3; /* Second column */
+    grid-row: 2 / 3;
+    width: 230px;
+    margin-left: -495px;
+    margin-top:-30px;
+
+
+
+}
+
+.F {
+    height: 250px;
+    grid-column: 3 / 4; /* Third column */
+    grid-row: 2 / 3;
+    width: 230px;
+    margin-left: -669px;
+    margin-top:-30px;
+
+}
+
+.C {
+    height: 350px;
+    grid-column: 2 / 4; /* Third column */
+    grid-row: 2 / 2;
+    margin-top:-130px;
+    width: 400px;
+    margin-left: -20px;;
+
+}
+
+@media (max-width: 1200px) {
+    main {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .A, .B, .C, .D, .E, .F {
+        grid-column: span 1; /* Span across single column */
+        grid-row: auto; /* Reset row positioning */
+    }
+}
+
+section {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 100%;
+
+
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(60, 60, 60, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+section:hover .image-overlay {
+    opacity: 1;
+}
+
+img {
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+}
+
+h3 {
+    position: absolute;
+    bottom: 200px;
+    left: 20px;
+    color: #fff;
+    font-size: 24px;
+    font-family: sans-serif;
+}
+
+p {
+    position: absolute;
+    bottom: 200px;
+    left: 20px;
+    color: #fff;
+    font-size: 15px;
+}
+   
+</style>
+
+
+<div class="w3-sidebar w3-bar-block w3-border-right" style="width: 22%;" id="mySidebar">
+  <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+  <ul style="list-style-type: none; padding: 0;">
+    {% for category in data %}
+    <li style="border-bottom: 1px solid #ccc; padding: 9px 0;">
+        <a href="#" onclick="toggleSubcategories('{{ category.main_category }}')" style="font-weight: bold; margin-left: 20px;" class="capitaliz">{{ category.main_category }}</a>
+        <ul style="list-style-type: none; padding: 0;" id="{{ category.main_category }}Subcategories" style="display: none;">
+            {% for subcategory in category.sub_categories %}
+                <li class="subcategory-item{% if forloop.counter > 4 %} hidden{% endif %}"><a href="{% url 'products' %}?main_category={{ category.main_category|urlencode }}&subcategory={{ subcategory|urlencode }}" style="margin-left: 40px;" class="capitaliz">{{ subcategory }}</a></li>
+            {% endfor %}
+            <li onclick="showMore('{{ category.main_category }}')" id="showMore_{{ category.main_category }}" class="show-more{% if category.sub_categories|length <= 4 %} hidden{% endif %}">... Show More</li>
+        </ul>
+        <span onclick="showless('{{ category.main_category }}')" id="toggleBtnShow_{{ category.main_category }}" class="toggle-text hidden">... Show Less</span>
+      </li>
+    
+{% endfor %}
+
+  </ul>
+</div>
+
+<div class="w3-teal">
+    <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
+  </div>
+
+<div style="margin-left:130px">
+  <div class="w3-padding welcome-text">WELCOME TO IMPRESSICO CART</div>
+  <div class="content-introduction">Explore. Shop. Enjoy 🛍️ <br> Enjoy Explore curated collections and find what you love.<br>Happy shopping ! Start discovering now !</div>
+  
+  <div class="slideshow-container">
+    <div class="fullscreen-image-slider">
+      <div class="mySlides fade">
+          <img src="{% static 'dist/img/credit/1000_F_264746879_TaNIJaljMm3k63FP3DhcGBsoerribXBu.jpg' %}" alt="Slide 1">
+      </div>
+
+      <div class="mySlides fade">
+          <img src="{% static 'dist/img/credit/Green-and-Packaging-1024x576.jpg' %}" alt="Slide 2" >
+      </div>
+
+      <div class="mySlides fade">
+          <img src="{% static 'dist/img/credit/360_F_366424918_G5NOITMgmfEZTepXvwXx2bf1qZ8Jmgds.jpg' %}" alt="Slide 3"style="margin-top: 100px;height:900px">
+      </div>
+
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <div class="dot-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+  </div>
+
+  <main>
+    <section class="A" onclick="redirectToProducts('top_rated_products')">
+      <div class="image-overlay"></div>
+      <img src="{% static 'dist/img/credit/360_F_261772421_RFXXcLwRzVcf0TKEH9nEHY2Cc1vzzhcG.jpg' %}" alt="Top Rated Products">
+      <h3 style="bottom: 350px; left: 400px;">Top Rated Products</h3>
+      <p style="bottom: 300px; left: 415px; text-wrap: balance; ">Discover the best products <br>loved by our community!</p>
+    </section>
+  
+    <section class="B" onclick="redirectToProducts('products_50_off')">
+      <div class="image-overlay"></div>
+      <img src="{% static 'dist/img/credit/360_F_315280799_2p2VQoBQkfjnYO6gjRSII4oXrZbeEIt6.jpg' %}" alt="Products with 50% Off">
+      <h3 style="bottom: 190px; left: 120px;">Products with 50% Off</h3>
+      <p style="bottom: 140px; left: 120px;">Get incredible deals with discounts up to 50% off!</p>
+    </section>
+  
+    <section class="C" onclick="redirectToProducts('top_10_women_shoes')">
+      <div class="image-overlay"></div>
+      <img src="{% static '/dist/img/credit/depositphotos_231476192-stock-photo-pair-sport-shoes-colorful-background.jpg' %}" alt="Top 10 Products ">
+      <h3 style="bottom: 250px; left: 40px;">top 10 shoes for </h3>
+      <p style="bottom: 200px; left: 40px; text-wrap: balance;">Explore our top 10 <br>must-have items!</p>
+    </section>
+  
+    <section class="D" onclick="redirectToProducts('products_30_off')">
+      <div class="image-overlay"></div>
+      <img src="{% static 'dist/img/credit/1000_F_264746879_TaNIJaljMm3k63FP3DhcGBsoerribXBu.jpg'%}" alt="Products with 30% Off">
+      <h3 style="bottom: 160px; left: 10px; text-wrap: balance;">Products with 30% Off</h3>
+      <p style="bottom: 110px; left: 10px; text-wrap: balance;">Enjoy quality products at discounted prices!</p>
+    </section>
+  
+    <section class="E" onclick="redirectToProducts('biggest_discounts')">
+      <div class="image-overlay"></div>
+      <img src="{% static 'dist/img/credit/how_20to_20make_20money_20from_20pinterest.webp' %}" alt="Biggest Discounts">
+      <h3 style="bottom: 170px; left: 10px;">Biggest Discounts</h3>
+      <p style="bottom: 120px; left: 10px;">Score amazing deals on a wide range of products!</p>
+    </section>
+  
+    <section class="F" onclick="redirectToProducts('under_199')">
+      <div class="image-overlay"></div>
+      <img src="{% static 'dist/img/credit/b3c18465887d06ae45fa1289195a7dae.jpg'%}" alt="Best Sell under 199">
+      <h3 style="bottom: 170px; left: 10px; align-content: center;">Best Sell Under 199</h3>
+      <p style="bottom: 120px; left: 10px; align-content: center;">Discover budget-friendly favorites under $199!</p>
+    </section>
+  
+    <section class="G" onclick="redirectToProducts('under_299')">
+      <div class="image-overlay"></div>
+      <img src="{% static 'dist/img/credit/arranged-toys-blue-background-with-copy-space-ai-generated_894279-1818.avif' %}" alt="Best Sell under 299">
+      <h3 style="bottom: 600px; left:100px;">Best Sell Under 299</h3>
+      <p style="bottom: 550px; left:100px;">Find great value with top sellers under $299!</p>
+    </section>
+  </main> 
+  
+
+<div class="swiper-container first-swiper ">
+  <div class="swiper-text">Men's Choice</div>
+  <hr class="divider">
+  <div class="slide-container swiper abc">
+    <div class="swiper-button-prev" ></div>
+    <div class="swiper-button-next" ></div>
+    <div class="slide-content swiper-wrapper">
+      {% for product in top_mens_rated_products %}
+      <div class="swiper-slide card">
+          <img class="card-img" src={{product.image_url}}>
+        <div class="product-slider">
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div> 
+
+<div class="swiper-container second-swiper">
+  <div class="swiper-text">Best Deals </div>
+  <hr class="divider">
+  <div class="slide-container swiper abc">
+    <div class="swiper-button-prev" ></div>
+    <div class="swiper-button-next" ></div>
+    <div class="slide-content swiper-wrapper">
+      {% for product in biggest_discounts %}
+      <div class="swiper-slide card">
+        <img class="card-image" src={{product.image_url}}>
+        <div class="product-slider">
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-pagination"></div>
+    
+</div>
+
+  </div>
+</div>
+
+
+<script>
+     function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+  }
+
+  function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+  }
+
+  function toggleSubcategories(mainCategory) {
+    var subcategories = document.getElementById(mainCategory + "Subcategories");
+    if (subcategories.style.display === "none") {
+      subcategories.style.display = "block";
+    } else {
+      subcategories.style.display = "none";
+    }
+  }
+  function toggleProducts(subcategory) {
+    window.location.href = "{% url 'products' %}?subcategory=" + subcategory;
+  }
+  function toggleSidebar() {
+    var sidebar = document.getElementById("mySidebar");
+    if (sidebar.style.display === "block") {
+      sidebar.style.display = "none";
+    } else {
+      sidebar.style.display = "block";
+    }
+  }
+  function showMore(mainCategory) {
+    var subcategories = document.getElementById(mainCategory + "Subcategories").getElementsByClassName("subcategory-item");
+    var showMoreBtn = document.getElementById("showMore_" + mainCategory);
+    var toggleBtnShow = document.getElementById("toggleBtnShow_" + mainCategory);
+
+    // Show all subcategories
+    for (var i = 4; i < subcategories.length; i++) {
+        subcategories[i].classList.remove("hidden");
+    }
+    showMoreBtn.classList.add("hidden");
+    toggleBtnShow.classList.remove("hidden");
+}
+
+function showless(mainCategory) {
+    var subcategories = document.getElementById(mainCategory + "Subcategories").getElementsByClassName("subcategory-item");
+    var showMoreBtn = document.getElementById("showMore_" + mainCategory);
+    var toggleBtnShow = document.getElementById("toggleBtnShow_" + mainCategory);
+
+    // Show or hide all subcategories and change the text accordingly
+    for (var i = 4; i < subcategories.length; i++) {
+        subcategories[i].classList.toggle("hidden");
+    }
+    showMoreBtn.classList.toggle("hidden");
+    toggleBtnShow.classList.toggle("hidden");
+}
+
+
+
+    // Slideshow functionality
+    var slideIndex = 0;
+    showSlides();
+  
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {slideIndex = 1}    
+        slides[slideIndex-1].style.display = "block";  
+        setTimeout(showSlides, 5000); // Change slides every 5 seconds
+    }
+  
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+  
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+  </script>
+  <script src="//cdn.jsdelivr.net/gh/freeps2/a7rarpress@main/swiper-bundle.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/gh/freeps2/a7rarpress@main/script.js"></script>
+<script>
+  function redirectToProducts(category) {
+      window.location.href = "{% url 'products_thumbnails' %}?category=" + category;
+  }
+</script>
+
+<script>
+  var swiper = new Swiper(".slide-container", {
+      slidesPerView: 2,  //
+      slidesPerGroup: 2, 
+      spaceBetween: 15,
+      fade: 'true',
+      grabCursor: 'true',
+      pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+          dynamicBullets: true,
+      },
+      navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+      },
+      breakpoints:{
+          0: {
+              slidesPerView: 1,  // Show 1 slide for very small screens
+              slidesPerGroup: 1, // Advance 1 slide at a time
+          },
+          520: {
+              slidesPerView: 2,  // Show 2 slides for small screens
+              slidesPerGroup: 2, // Advance 2 slides at a time
+          },
+          950: {
+              slidesPerView: 3,  // Show 3 slides for medium screens
+              slidesPerGroup: 3, // Advance 3 slides at a time
+          },
+                 
+      },
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+{% endblock %}

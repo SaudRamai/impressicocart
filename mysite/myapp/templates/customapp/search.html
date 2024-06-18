@@ -1,0 +1,407 @@
+{% extends 'customapp/dependencies.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Roboto:wght@300&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0');
+
+  :root {
+    --color-primary-white: rgb(0, 0, 0);
+  }
+body{
+  background-color: #effefd;
+}
+  main {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .subcategory-products{    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(calc(25% - 20px), 1fr)); /* Ensure 4 columns */
+    gap: 20px; /* Adjust gap between cards */
+    justify-content: center;
+    margin-top: 20px; /* Adjust margin-top */
+  }
+
+  .product-card {
+    height: 25rem; /* Adjust card height */
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 10px 30px 5px rgba(0, 0, 0, 0.2);
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: #ffffff;
+  }
+
+  .product-card {
+    position: relative;
+  }
+
+  .product-card h2 {
+  left: 50%;
+  margin: 0;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 10px;
+  text-align: center;
+  width: 100%;
+  margin-top: 190px;
+  margin-left: 10px;
+  text-wrap: balance;
+
+
+
+}
+
+  .product-details {
+    margin-top:5px;
+    left: 20px;
+    max-width: 80%;
+    margin-left: 50px;
+    font-size: 0.5rem;
+  }
+
+  .product-details p {
+    margin: 5px 0;
+    font-size: 0.7rem;
+    display: block;
+  }
+
+  .product-details a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .product-card:hover h2 {
+    bottom: 250px;
+  }
+
+  .product-card:hover .product-details {
+    opacity: 1;
+    transition: opacity .5s .1s ease-in;
+  }
+
+  .product-card:hover img {
+    transition: opacity .3s ease-in;
+    opacity: 1;
+  }
+
+  .star-rating {
+    
+    unicode-bidi: bidi-override;
+    color: #c5c5c5;
+    font-size: 20px;
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    margin-left: 80px;
+  }
+
+  .star-rating span.star {
+    color: #ffd700;
+    display: inline-block;
+    position: relative;
+    padding-right: 0;
+  }
+
+  .star-rating span.star:before {
+    content: "★";
+    position: relative;
+    z-index: 2;
+  }
+
+  
+  .w3-sidebar {
+    display: none;
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    z-index: 1000; /* Ensure sidebar is above other content */
+  }
+  .capitaliz {
+    text-transform: capitalize;
+  }
+
+  img {
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 80%;
+    top: 0;
+    left: 0;
+    opacity: 0.9;
+    transition: opacity .2s ease-out;
+  }
+  &:hover img {
+    transition: opacity .3s ease-in;
+    opacity: 1;
+  }
+  .show-more {
+    display: block;
+    font-weight: bold;
+    margin-left: 40px;
+    color: #049485;
+    cursor: pointer;
+}
+.show-more.hidden {
+    display: none;
+} 
+.toggle-text {
+    display: block;
+    font-weight: bold;
+    margin-left: 40px;
+    color: #049485;
+    cursor: pointer;
+}
+
+.toggle-text.hidden {
+    display: none;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  margin-left: 600px;
+  margin-top: 100px;
+
+
+}
+
+.pagination-number {
+  --size:   25px;
+  --margin: 3px;
+  margin: 0 var(--margin);
+  border-radius: 1px;
+  color: #026c61;
+  max-width: auto;
+  min-width: var(--size);
+  height: var(--size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0 4px;
+  background-color:#06c3b0;
+
+
+;
+}
+
+.pagination-active {
+  background: lighten(#ffffff, 3%);
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+
+}
+.arrow-previous {
+  display: flex;
+  align-items: center;
+  margin-left: -50px;
+
+}
+
+.arrow-text {
+  font-size: 13px;
+}
+.loader {
+    transform: rotateZ(45deg);
+    perspective: 1000px;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    color: #039688;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: none;
+  }
+
+  .loader:before,
+  .loader:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    border-radius: 50%;
+    transform: rotateX(70deg);
+    animation: 1s spin linear infinite;
+  }
+
+  .loader:after {
+    color: #000000;
+    transform: rotateY(70deg);
+    animation-delay: .4s;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotateZ(360deg);
+    }
+  }
+
+  @keyframes rotateccw {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(-360deg);
+    }
+  }
+
+  @keyframes spin {
+    0%,
+    100% {
+      box-shadow: .2em 0px 0 0px currentcolor;
+    }
+    12% {
+      box-shadow: .2em .2em 0 0 currentcolor;
+    }
+    25% {
+      box-shadow: 0 .2em 0 0px currentcolor;
+    }
+    37% {
+      box-shadow: -.2em .2em 0 0 currentcolor;
+    }
+    50% {
+      box-shadow: -.2em 0 0 0 currentcolor;
+    }
+    62% {
+      box-shadow: -.2em -.2em 0 0 currentcolor;
+    }
+    75% {
+      box-shadow: 0px -.2em 0 0 currentcolor;
+    }
+    87% {
+      box-shadow: .2em -.2em 0 0 currentcolor;
+    }
+  }
+
+
+</style>
+
+<div class="title-container">
+  <p style="font-weight: bold; font-size: 2rem; margin-left: 20px;">Search Results</p>
+  <p style="font-size: 0.8rem; margin-left: 20px;">Price and other details may vary based on product size and colour.</p>
+</div>
+
+<div class="subcategory-products">
+  {% for product in results %}
+  <div class="product-card">
+    <img  src={{product.image_url}} style="height: 50%;">
+    <h2>{{ product.name }}</h2>
+    <div class="product-details">
+      <p style="margin-left: 105px"><span style='font-size:10px;'>&#8360; </span>{{ product.actual_price }}</p>
+      <p style="font-size: 24px; font-weight: bold; margin-left: 80px"><span style='font-size:25px;'>&#8360; </span>{{ product.discount_price }}</p>
+      <div class="star-rating" data-rating="{{ product.ratings }}">
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+      </div>
+      <p style="margin-left: 120px">({{ product.no_of_ratings }})</p> 
+      <p style="text-align: center; margin-top: 10px;">
+        <a href="{{ product.link }}" target="_blank">
+          <button style="padding: 5px 20px; background-color: #049485; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-right: 40px">
+            View on Amazon
+          </button>
+        </a>
+      </p>   
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+<div class="pagination-container">
+  {% if current_page > 1 %}
+    <div class="pagination-number arrow">
+      <a href="?page={{ current_page|add:'-1' }}&q={{ query }}&smartsearchx={{smartsearchx}}">
+        <svg width="18" height="18">
+          <use xlink:href="#left" />
+        </svg>
+        <span class="arrow-text">Previous</span>
+      </a>
+    </div>
+  {% endif %}
+
+  {% for num in page_range %}
+    {% if current_page == num %}
+      <div class="pagination-number pagination-active">{{ num }}</div>
+    {% elif num > current_page|add:'-5' and num < current_page|add:'5' %}
+      <div class="pagination-number">
+        <a href="?page={{ num }}&q={{ query }}&smartsearchx={{smartsearchx}}">{{ num }}</a>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  {% if current_page < total_pages %}
+    <div class="pagination-number arrow">
+      <a href="?page={{ current_page|add:'1' }}&q={{ query }}&smartsearchx={{smartsearchx}}">
+        <span class="arrow-text">Next</span>
+        <svg width="18" height="18">
+          <use xlink:href="#right" />
+        </svg>
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+<svg class="hide">
+  <symbol id="left" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></symbol>
+  <symbol id="right" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></symbol>
+</svg>
+
+<div id="loader" class="loader" style="display: none;"></div> 
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('.search-form');
+    const loader = document.getElementById('loader');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      loader.style.display = 'inline-block';
+      setTimeout(function() {
+        loader.style.display = 'none';
+      }, 3000); 
+    });
+  });
+
+document.querySelector("form").addEventListener("submit", function () {
+  document.getElementById("loader").style.display = "block";
+});
+ function saveSearchQuery() {
+    const input = document.getElementById('searchInput');
+    const inputValue = input.value.trim();
+    if (inputValue !== '') {
+      localStorage.setItem('searchQuery', inputValue);
+    }
+  }
+  function retrieveSearchQuery() {
+    const input = document.getElementById('searchInput');
+    const savedQuery = localStorage.getItem('searchQuery');
+    if (savedQuery) {
+      input.value = savedQuery;
+    }
+  }
+  window.onload = function() {
+    retrieveSearchQuery();
+  };
+
+</script>
+{% endblock %}

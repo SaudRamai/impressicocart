@@ -1,0 +1,340 @@
+{% load static %}
+
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+<style>
+  .greet {
+    font-size: 15px;
+    color: #fff;
+    margin-left: -300px;
+    margin-top:-5px;
+
+  }
+  .logout {
+    font-size: 15px;
+    color: #fff;
+    margin-left: 10px;
+    margin-top: -5px; /* Shift logout link upwards */
+
+
+  }
+  .col-md-6 {
+    margin-bottom: -5px; 
+    color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+  }
+  h1 {
+    font-size: 30px;
+    margin-left:-100px;
+        margin-bottom: 20px; 
+
+  }
+  .col-md-6 img {
+    position: absolute;
+    transform: translateY(-55%); 
+    height: 50px;
+    width: 50px;
+    margin-top: 30px;
+    margin-left: 335px;
+
+  }
+
+  .search-container {
+    display: flex;
+    justify-content: center;
+    margin-right: 180px; /* Align search container to the right */
+    color: #05e6d7;
+    margin-left: 30px;
+  }
+  .search-form {
+    width: 150%; /* Ensure the form takes full width of its container */
+    position: relative; /* Needed for the results dropdown positioning */
+    color: #05e6d7;
+  }
+  .autocomplete-suggestions {
+    display: none; /* Hide suggestions by default */
+    height: fit-content;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 1000;
+    border: 1px solid #ddd;
+  }
+  .autocomplete-suggestion {
+    padding: 8px;
+    cursor: pointer;
+  }
+  /* Add this CSS to style the premium switch */
+  .premium-switch {
+    display: flex;
+    margin-top: -35px;
+    margin-left: 500px;
+    color: white;
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 25px;
+  }
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 15;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 1s;
+    transition: 1s;
+    border-radius: 50px;
+    outline: 1px solid rgb(0, 114, 97); /* Add black outline */
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 2px;
+    background-color: #00a398;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 25%;
+    outline: 1px solid rgb(0, 114, 97); /* Add black outline */
+  }
+  input:checked + .slider {
+    background-color: #00c6b2;
+  }
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 50px;
+  }
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  .premium-label {
+    margin-left: 10px;
+  }
+  .golden-btn {
+    display: inline-block;
+    outline: none;
+    font-family: inherit;
+    font-size: 1em;
+    box-sizing: border-box;
+    border: none;
+    border-radius: .3em;
+    height: 2rem;
+    line-height: 2em;
+    text-transform: uppercase;
+    padding: 0 1em;
+    box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(110,80,20,.4),
+                inset 0 -2px 5px 1px rgba(139,66,8,1),
+                inset 0 -1px 1px 3px rgba(250,227,133,1);
+    background-image: linear-gradient(160deg, #a54e07, #b47e11, #fef1a2, #bc881b, #a54e07);
+    border: 1px solid #a55d07;
+    color: rgb(120,50,5);
+    text-shadow: 0 2px 2px rgba(250, 227, 133, 1);
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    background-size: 100% 100%;
+    background-position:center;
+  }
+  .golden-btn:focus,
+  .golden-btn:hover {
+    background-size: 150% 150%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23),
+                  inset 0 -2px 5px 1px #b17d10,
+                  inset 0 -1px 1px 3px rgba(250,227,133,1);
+    border: 1px solid rgba(165,93,7,.6);
+    color: rgba(120,50,5,.8);
+  }
+  .golden-btn:active {
+    box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(110,80,20,.4),
+                inset 0 -2px 5px 1px #b17d10,
+                inset 0 -1px 1px 3px rgba(250,227,133,1);
+  }
+  .btn-search {
+    background-color: #fff;
+    border: 1px solid #bdbdbd;
+    color: #b4b4b4;
+    margin-left: -5px;
+    width: 50px;
+  }
+  
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #039688 !important;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto" style="margin-left: -20px;">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'home' %}">
+          <li class="w3-xlarge"><i class="fa fa-home"></i></li>
+        </a>
+      </li>
+      {% if request.user.customer %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'placeOrder' request.user.customer.id %}">Cart</a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+    </ul>
+    <span ><a  class="logout" href="{% url 'logout' %}">Logout</a></span>
+
+    
+    <!-- Search form -->
+    <div class="search-container">
+      <form class="flex" method="GET" action="{% url 'search_results' %}"> 
+        <div class="form-inline rounded-pill bg-light px-2 py-2 search-form" style="width: 500px;">
+          <input class="form-control form-control-sm mr-sm-2 flex-grow-2" type="search" name="q" placeholder="Search" aria-label="Search" style="width: 430px; margin: 0 auto;" id="searchInput">
+          <div id="result" class="autocomplete-suggestions"></div>
+          <button class="btn btn-link btn-search" type="submit" id="searchButton"><i class="fa fa-search"></i></button>    
+        </div>
+        <div class="premium-switch" >
+          <label class="switch">
+            <input id="premiumToggle" type="checkbox" name="smartsearchx">
+            <span class="slider round"></span>
+            {% comment %} <span class="ml-3 text-white">Smart Search</span> {% endcomment %}
+          </label>
+        </div>
+      </form>
+    </div>
+    
+
+    
+    <div class="col-md-6">
+      <h1>ＩＭＰＲＥＳＳＩＣＯ ＣＡＲＴ</h1>
+      <img id="premiumImage" src="{% static 'dist/img/credit/laurel-wreath.png' %}" alt="">
+    </div>
+    <span class="greet"> Hello, {{ request.user }}</span>
+  </div>
+</nav>
+
+<script>
+const input = document.querySelector('#searchInput');
+const resultContainer = document.querySelector('#result');
+const premiumSearchEnabled = localStorage.getItem('premiumSearchEnabled') === 'true';
+const premiumToggle = document.getElementById('premiumToggle');
+const searchButton = document.getElementById('searchButton');
+const premiumImage = document.getElementById('premiumImage');
+
+input.addEventListener('input', autosuggest);
+input.addEventListener('focus', () => {
+    if (resultContainer.innerHTML.trim() !== '') {
+        resultContainer.style.display = 'block';
+    }
+});
+
+input.addEventListener('blur', () => {
+    setTimeout(() => {
+        resultContainer.style.display = 'none';
+    }, 200); 
+});
+
+function autosuggest(e) {
+    const query = e.target.value;
+    if (query.length > 0) {
+        const url = `/autosuggest?query_string=${encodeURIComponent(query)}`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                displaySuggestions(data.autocomplete_terms);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    } else {
+        resultContainer.style.display = 'none';
+    }
+}
+
+function displaySuggestions(suggestions) {
+    resultContainer.innerHTML = '';
+    if (suggestions.length > 0) {
+        suggestions.forEach(suggestion => {
+            const suggestionText = suggestion[0];
+            const category = suggestion[1];
+
+            const suggestionDiv = document.createElement('div');
+            suggestionDiv.classList.add('autocomplete-suggestion');
+
+            const suggestionSpan = document.createElement('span');
+            suggestionSpan.textContent = suggestionText;
+
+            const categorySpan = document.createElement('span');
+            categorySpan.textContent = "In " + category;
+            categorySpan.classList.add('category');
+            categorySpan.style.color = 'blue';
+
+            suggestionDiv.appendChild(suggestionSpan);
+            suggestionDiv.appendChild(document.createElement('br'));
+            suggestionDiv.appendChild(categorySpan);
+
+            suggestionDiv.addEventListener('click', () => {
+                input.value = suggestionText;
+                resultContainer.innerHTML = '';
+                input.focus(); // Keep the input field focused
+                document.querySelector('.search-container button[type="submit"]').click();
+            });
+
+            resultContainer.appendChild(suggestionDiv);
+        });
+        resultContainer.style.display = 'block';
+        input.focus(); // Keep the input field focused after displaying suggestions
+    } else {
+        resultContainer.style.display = 'none';
+        input.focus(); // Keep the input field focused if no suggestions are found
+    }
+}
+
+premiumToggle.checked = premiumSearchEnabled;
+
+togglePremiumMode();
+
+function togglePremiumMode() {
+    if (premiumToggle.checked) {
+        searchButton.classList.remove('btn-search');
+        searchButton.classList.add('golden-btn');
+        searchButton.classList.add('premium-image');
+        searchButton.innerHTML = '<i class="fa fa-search"></i>';
+        premiumImage.style.display = 'block';
+    } else {
+        searchButton.classList.remove('golden-btn');
+        searchButton.classList.add('btn-search');
+        searchButton.innerHTML = '<i class="fa fa-search"></i>';
+        premiumImage.style.display = 'none';
+    }
+
+    localStorage.setItem('premiumSearchEnabled', premiumToggle.checked);
+}
+
+premiumToggle.addEventListener('change', togglePremiumMode);
+
+
+
+  
+</script>

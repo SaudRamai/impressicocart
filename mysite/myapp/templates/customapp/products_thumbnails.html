@@ -1,0 +1,116 @@
+<!-- products_thumbnails.html -->
+
+{% extends 'customapp/dependencies.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <style>
+        .thumbnails {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 30px;
+
+        }
+        .thumbnail {
+            width: 150px;
+            margin: 10px;
+            text-align: center;
+            cursor: pointer; /* Add cursor pointer for indicating clickable */
+            margin-left: 30px;
+
+        }
+        .thumbnail img {
+            width: 100%;
+            height: 100px;
+        }
+        h2 {
+            font-size: 2.5rem; 
+            margin-left: 60px;
+        }
+    </style>
+    {% if top_rated_products %}
+        <h2>Top Rated Products</h2>
+        <div class="thumbnails">
+            {% for product in top_rated_products %}
+                <div class="thumbnail">
+                    <img src="{{ product.image_url }}" style="height: 50%;">
+                    <p>{{ product.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if products_50_off %}
+        <h2>Products with 50% Off</h2>
+        <div class="thumbnails">
+            {% for product in products_50_off %}
+                <div class="thumbnail">
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    <p>{{ product.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if products_30_off %}
+        <h2>Products with 30% Off</h2>
+        <div class="thumbnails">
+            {% for product in products_30_off %}
+                <div class="thumbnail">
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    <p>{{ product.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if products_under_299 %}
+        <h2>Products Under 299</h2>
+        <div class="thumbnails">
+            {% for product in products_under_299 %}
+                <div class="thumbnail">
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    <p>{{ product.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if top_10_women_shoes %}
+        <h2>Top 10 shoes for women</h2>
+        <div class="thumbnails">
+            {% for product in top_10_women_shoes %}
+                <div class="thumbnail">
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    <p>{{ product.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if products_under_199 %}
+        <h2>Products Under 199</h2>
+        <div class="thumbnails">
+            {% for product in products_under_199 %}
+                <div class="thumbnail">
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    <p>{{ product.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if products_biggest_discounts %}
+        <h2>Products with Biggest Discounts</h2>
+        <div class="thumbnails">
+            {% for product in products_biggest_discounts %}
+                <div class="thumbnail">
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    <p>{{ product.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
