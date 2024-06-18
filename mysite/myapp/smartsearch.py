@@ -1,6 +1,5 @@
 import os
 import json
-# import streamlit as st
 from openai import OpenAI
 from opensearchpy import OpenSearch
 from langchain.chains import LLMChain
@@ -19,7 +18,6 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, '.env'))
-# load_dotenv()
 
 openapi_key = os.getenv("OPEN_API_KEY")
 
@@ -69,12 +67,7 @@ structured_index_name = "amazon_data_v2"
 def chat_gpt2(query):
 
     model = ChatOpenAI(api_key=openapi_key, temperature=0)
-    # print("hello  ::   *************     ", query)
 
-    # And a query intented to prompt a language model to populate the data structure.
-    # query = f"read this text extracted from a user resume carefully and classify this based on different criteria into the json format.   text : {text} \n\n"
-
-    # Set up a parser + inject instructions into the prompt template.
     parser = JsonOutputParser(pydantic_object=QueryStructure)
 
     prompt = PromptTemplate(
@@ -100,13 +93,11 @@ def es_connect():
             verify_certs=False,  # Set to True if you have proper SSL certificates
             ssl_show_warn=False
         )
-        # Optional: Check if the connection is successful by making a simple request
         es.info()
         print("Connection established")
         return es
 
     except Exception as e:
-        # st.error(f"Failed to connect to OpenSearch cluster: {e}")
         return None
 
 
@@ -117,18 +108,15 @@ es = es_connect()
 
 def execute_query(index_name, query_dsl):
     try:
-        # Execute the search query
         response = es.search(index=index_name, body=query_dsl)
         return response
     except Exception as e:
-        # st.error(f"Failed to execute OpenSearch query: {e}")
         return []
 
 
 
 def execute_count_query(index_name, query_dsl):
     try:
-        # Execute the count query
         response = es.count(index=index_name, body=query_dsl)
         return response['count']
     except Exception as e:
@@ -508,14 +496,10 @@ def smartsearch(query):
 
 
 
-                # final_answer["sort"] = [{"ratings": {"order": "desc"}}]
                 final_answer['from'] = 0
                 final_answer["size"] = 5
                 query_dsl = final_answer
-                # print("helloooooooooooo                   :            ",json.dumps(final_answer, indent=4))
-
-                # results = execute_query(structured_index_name, query_dsl)
-                
+                               
                     
                 return query_dsl, total_pages
 
@@ -538,7 +522,6 @@ def re_execute_search(query_dsl, start_index, end_index, page_size):
 
             hits = results['hits']['hits']
 
-            # Extracting only the source data and creating a list
             results = [hit['_source'] for hit in hits]
 
             print(start_index, end_index, page_size)
