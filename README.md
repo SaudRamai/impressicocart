@@ -1,4 +1,4 @@
-![Screenshot from 2024-06-17 15-04-10](https://github.com/SaudRamai/impressicocart/assets/136465879/9428b82e-e2a8-4053-be35-da7a5b9ff378)## Django Application with OpenSearch Integration
+## Django Application with OpenSearch Integration
 This project integrates a Django application with OpenSearch using Docker for efficient data storage and retrieval. It enhances search functionality with both normal and AI-powered smart search capabilities, leveraging OpenSearch and advanced AI models.
 
 ![Screenshot from 2024-06-17 14-58-40](https://github.com/SaudRamai/impressicocart/assets/136465879/0f508712-ea87-40e2-942b-1c88ff95c521)
@@ -278,14 +278,6 @@ To activate premium smart search features:
 
 ##### OpenSearch Database
 - Input: Users enter search queries in the search bar located on the application's navbar.
-
-##### Process Flow
-- Input: Users enter search queries in the search bar located on the application's navbar.
-- User Input: Users input search queries in natural language through the search interface.
-- Query Interpretation: AI processes the query to understand user intent and extract key details like product names, categories, price ranges, and ratings.
-- Query Generation: The query parser converts extracted information into a valid OpenSearch query DSL, ensuring adherence to schema and constraints.
-- Query Execution: The generated query is executed against the OpenSearch database, establishing a connection to the OpenSearch cluster to retrieve matching products.
-- Result Retrieval: Search results are fetched and formatted for display, ensuring a user-friendly experience with support for pagination to navigate through multiple result pages.
 
 ### Implementation
 
