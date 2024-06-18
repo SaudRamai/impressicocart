@@ -276,16 +276,37 @@ To activate premium smart search features:
 ##### Query Parser
 - Converts extracted information into valid OpenSearch queries.
 
-##### OpenSearch Database
-- Input: Users enter search queries in the search bar located on the application's navbar.
+
 
 ### Implementation
 
-Frontend: The search bar is implemented using Django templates, allowing users to input search queries directly on the application's navbar.
+**Step 1: Set Up OpenAI** 
 
-Backend: Django views handle the logic for both normal and smart search functionalities, interacting with the OpenSearch database through django-opensearch-dsl.
+Store Your API Key Securely:
 
-Integration: Configuration in settings.py ensures seamless integration with OpenSearch, enabling efficient querying and retrieval of product data.
+Create a .env file in your project directory if you don't have one.
+
+Add your OpenAI API key to this file. For example:
+```bash
+OPENAI_API_KEY=your_openai_api_key_here
+```
+Replace your_openai_api_key_here with the actual API key you obtained from OpenAI.
+
+Define the prompt template for query generation.
+
+**Step 2: Configure OpenSearch** 
+
+Set up the OpenSearch instance with appropriate mappings and categories.
+
+Ensure data is indexed correctly for efficient searching.
+
+**Step 3: Develop Smart Search Function**
+
+Create the function to handle user input and interact with OpenAI.
+
+Implement query execution against OpenSearch.
+
+Manage pagination and result display
 
 ## Usage
 - Input: Users enter search queries in the search bar located on the application's navbar.
